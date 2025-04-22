@@ -76,7 +76,8 @@ app.post('/encode', upload.single('video'), async (req, res) => {
     exec(mergeCommand, (err) => {
       if (err) return res.status(500).send("Encoding failed");
 
-      res.download(outputPath, \`\${title.replace(/\s+/g, '_')}_encoded.mp4\`);
+    res.download(outputPath, `${title.replace(/\s+/g, '_')}_encoded.mp4`);
+
     });
   });
 });
