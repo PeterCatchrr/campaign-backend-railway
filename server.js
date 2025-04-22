@@ -67,7 +67,8 @@ app.post('/encode', upload.single('video'), async (req, res) => {
   const outputPath = `uploads/encoded_${Date.now()}.mp4`;
 
   const generateTone = `ffmpeg -f lavfi -i sine=frequency=${frequency}:duration=0.5 -y ${tonePath}`;
-  const mergeCommand = \`ffmpeg -i \${inputPath} -i \${tonePath} -filter_complex "[0:a][1:a]amix=inputs=2:duration=first[aout]" -map 0:v -map "[aout]" -c:v copy -y \${outputPath}\`;
+  const mergeCommand = `ffmpeg -i ${inputPath} -i ${tonePath} -filter_complex "[0:a][1:a]amix=inputs=2:duration=first[aout]" -map 0:v -map "[aout]" -c:v copy -y ${outputPath}`;
+
 
   exec(generateTone, (err) => {
     if (err) return res.status(500).send("Tone generation failed");
